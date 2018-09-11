@@ -66,4 +66,19 @@ var _ = Describe("CF R Buildpack", func() {
 			Eventually(app.Stdout.String).Should(ContainSubstring("library(shiny)"))
 		})
 	})
+
+	FContext("with an R app that requires plumber", func() {
+		BeforeEach(func() {
+			app = cutlass.New(filepath.Join(bpDir, "fixtures", "plumber"))
+			Expect(app.PushNoStart()).To(Succeed())
+		})
+
+		It("runs without needing to download plumber", func() {
+			RunCF("set-health-check", app.Name, "process")
+			Expect(app.Restart()).To(Succeed())
+			Expect(app.ConfirmBuildpack(buildpackVersion)).To(Succeed())
+
+			Eventually(app.Stdout.String).Should(ContainSubstring("library(plumber)"))
+		})
+	})
 })
