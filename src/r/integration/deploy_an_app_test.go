@@ -66,7 +66,7 @@ var _ = Describe("CF R Buildpack", func() {
 		})
 	})
 
-	FContext("with an R app that requires plumber", func() {
+	Context("with an R app that requires plumber", func() {
 		BeforeEach(func() {
 			app = cutlass.New(filepath.Join(bpDir, "fixtures", "plumber"))
 			Expect(app.PushNoStart()).To(Succeed())
@@ -75,7 +75,7 @@ var _ = Describe("CF R Buildpack", func() {
 		It("runs without needing to download plumber", func() {
 			Expect(app.Restart()).To(Succeed())
 			Expect(app.ConfirmBuildpack(buildpackVersion)).To(Succeed())
-			Expect(app.GetBody("/")).To(ContainSubstring(""))
+			Expect(app.GetBody("/?msg=hello")).To(ContainSubstring(`{"msg":["The message is: 'hello'"]}`))
 
 			Eventually(app.Stdout.String).Should(ContainSubstring("library(plumber)"))
 		})
