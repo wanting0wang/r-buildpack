@@ -59,7 +59,6 @@ var _ = Describe("CF R Buildpack", func() {
 		})
 
 		It("runs without needing to download shiny", func() {
-			RunCF("set-health-check", app.Name, "process")
 			Expect(app.Restart()).To(Succeed())
 			Expect(app.ConfirmBuildpack(buildpackVersion)).To(Succeed())
 
@@ -74,9 +73,9 @@ var _ = Describe("CF R Buildpack", func() {
 		})
 
 		It("runs without needing to download plumber", func() {
-			RunCF("set-health-check", app.Name, "process")
 			Expect(app.Restart()).To(Succeed())
 			Expect(app.ConfirmBuildpack(buildpackVersion)).To(Succeed())
+			Expect(app.GetBody("/")).To(ContainSubstring(""))
 
 			Eventually(app.Stdout.String).Should(ContainSubstring("library(plumber)"))
 		})
