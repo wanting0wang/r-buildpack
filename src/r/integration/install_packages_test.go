@@ -1,11 +1,15 @@
 package integration_test
 
 import (
-	"path/filepath"
-
+	"fmt"
 	"github.com/cloudfoundry/libbuildpack/cutlass"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	"golang.org/x/net/websocket"
+	"log"
+	"path/filepath"
+	"strings"
+	"time"
 )
 
 var _ = Describe("CF R Buildpack", func() {
@@ -13,7 +17,7 @@ var _ = Describe("CF R Buildpack", func() {
 
 	AfterEach(func() {
 		if app != nil {
-			app.Destroy()
+			//app.Destroy()
 		}
 		app = nil
 	})
@@ -93,6 +97,30 @@ var _ = Describe("CF R Buildpack", func() {
 
 			Eventually(app.Stdout.String).Should(ContainSubstring("R program running"))
 			Eventually(app.Stdout.String).Should(ContainSubstring("HELLO WORLD"))
+		})
+	})
+
+	Context("with an R app that needs sf and additional header files", func() {
+		BeforeEach(func() {
+			app = cutlass.New(filepath.Join(bpDir, "fixtures", "needs_headers"))
+			app.Buildpacks = []string{"https://github.com/cloudfoundry/apt-buildpack#master", "r_buildpack"}
+			app.Memory = "1G"
+			app.Disk = "1G"
+		})
+
+		FIt("can successfully stage the app", func() {
+			Expect(app.Push()).To(Succeed())
+			Eventually(func() ([]string, error) { return app.InstanceStates() }, 1 * time.Hour).Should(Equal([]string{"RUNNING"}))
+			Expect(app.ConfirmBuildpack(buildpackVersion)).To(Succeed())
+
+			origin, err := app.GetUrl("")
+			fmt.Println(origin)
+			Expect(err).ToNot(HaveOccurred())
+			url := strings.Replace(origin, "http://", "ws://", 1) // Handle https as well
+			_, err = websocket.Dial(url, "", origin)
+			if err != nil {
+				log.Fatal(err)
+			}
 		})
 	})
 })

@@ -1,0 +1,6 @@
+---
+packages:
+  - cran_mirror:
+    packages:
+      - name: gdalUtils
+num_threads: 4

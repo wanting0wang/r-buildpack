@@ -1,6 +1,7 @@
 package integration_test
 
 import (
+	"fmt"
 	"log"
 	"path/filepath"
 	"strings"
@@ -16,7 +17,7 @@ var _ = Describe("CF R Buildpack", func() {
 
 	AfterEach(func() {
 		if app != nil {
-			app.Destroy()
+			//app.Destroy()
 		}
 		app = nil
 	})
@@ -48,6 +49,7 @@ var _ = Describe("CF R Buildpack", func() {
 			PushAppAndConfirm(app)
 
 			origin, err := app.GetUrl("")
+			fmt.Println(origin)
 			Expect(err).ToNot(HaveOccurred())
 			url := strings.Replace(origin, "http://", "ws://", 1) // Handle https as well
 			ws, err := websocket.Dial(url, "", origin)
