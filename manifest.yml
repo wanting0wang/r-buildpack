@@ -36,6 +36,11 @@ dependencies:
     version: 1.4.0
     source: https://cran.r-project.org/src/contrib/shiny_1.4.0.tar.gz
     source_sha256: 0c070459387cea98ca7c6df7318370116df42afb5f76a8625eb4f5b681ee6c4b
+  - name: shinydashboard
+  - name: leaflet
+  - name: rgdal
+  - name: stringr
+  - name: dplyr
 - name: r
   version: 3.5.3
   uri: https://buildpacks.cloudfoundry.org/dependencies/r/r-v3.5.3-cflinuxfs3-11ca7582.tgz
@@ -61,6 +66,11 @@ dependencies:
     version: 1.4.0.2
     source: https://cran.r-project.org/src/contrib/shiny_1.4.0.tar.gz
     source_sha256: 0c070459387cea98ca7c6df7318370116df42afb5f76a8625eb4f5b681ee6c4b
+  - name: shinydashboard
+  - name: leaflet
+  - name: rgdal
+  - name: stringr
+  - name: dplyr
 - name: r
   version: 3.6.2
   uri: https://buildpacks.cloudfoundry.org/dependencies/r/r-v3.6.2-cflinuxfs3-31058c5e.tgz
@@ -86,6 +96,11 @@ dependencies:
     version: 1.4.0
     source: https://cran.cnr.berkeley.edu/src/contrib/shiny_1.4.0.tar.gz
     source_sha256: 0c070459387cea98ca7c6df7318370116df42afb5f76a8625eb4f5b681ee6c4b
+  - name: shinydashboard
+  - name: leaflet
+  - name: rgdal
+  - name: stringr
+  - name: dplyr
 - name: r
   version: 3.6.3
   uri: https://buildpacks.cloudfoundry.org/dependencies/r/r-v3.6.3-cflinuxfs3-5d88589d.tgz
@@ -111,6 +126,11 @@ dependencies:
     version: 1.4.0.2
     source: https://cran.r-project.org/src/contrib/shiny_1.4.0.tar.gz
     source_sha256: 0c070459387cea98ca7c6df7318370116df42afb5f76a8625eb4f5b681ee6c4b
+  - name: shinydashboard
+  - name: leaflet
+  - name: rgdal
+  - name: stringr
+  - name: dplyr
 pre_package: scripts/build.sh
 include_files:
 - CHANGELOG
