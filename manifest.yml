@@ -127,10 +127,20 @@ dependencies:
     source: https://cran.r-project.org/src/contrib/shiny_1.4.0.tar.gz
     source_sha256: 0c070459387cea98ca7c6df7318370116df42afb5f76a8625eb4f5b681ee6c4b
   - name: shinydashboard
+    version: 0.7.1
+    source: https://cran.r-project.org/src/contrib/shinydashboard_0.7.1.tar.gz
   - name: leaflet
+    version: 2.0.3
+    source: https://cran.r-project.org/src/contrib/leaflet_2.0.3.tar.gz
   - name: rgdal
+    version: 1.4
+    source: https://cran.r-project.org/src/contrib/rgdal_1.4-8.tar.gz
   - name: stringr
+    version: 1.4.0
+    source: https://cran.r-project.org/src/contrib/stringr_1.4.0.tar.gz
   - name: dplyr
+    version: 0.8.5
+    source: https://cran.r-project.org/src/contrib/dplyr_0.8.5.tar.gz
 pre_package: scripts/build.sh
 include_files:
 - CHANGELOG
